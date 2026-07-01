@@ -1,36 +1,45 @@
-<h1 align="center">Bernardo · <code>rengar_sacudo</code></h1>
+<h1 align="center">Bernardo Curi</h1>
 
 <p align="center">
-  <b>Security researcher & builder</b> — quebrando o que já existe e construindo o que ainda não existe.<br>
-  🏆 Primeira CVE oficial &nbsp;·&nbsp; 🤖 IA aplicada a mercados &nbsp;·&nbsp; 🎓 ingressando em Ciência da Computação
+  Security Researcher &nbsp;·&nbsp; Software Builder
+</p>
+
+<p align="center">
+  <a href="https://www.cve.org/CVERecord?id=CVE-2026-48726">
+    <img src="https://img.shields.io/badge/CVE--2026--48726-Apache%20Airflow-critical?style=for-the-badge&labelColor=0d1117" alt="CVE-2026-48726">
+  </a>
 </p>
 
 ---
 
-### 🔎 Segurança
+Trabalho nos dois lados do mesmo problema: **encontrar como sistemas falham** e
+**construir sistemas que não falham**. No ofensivo, pesquiso vulnerabilidades de
+autenticação e lógica de negócio em aplicações web e APIs. No construtivo, projeto
+plataformas de dados e sistemas de decisão apoiados por IA — com a disciplina de
+provar por experimento o que realmente funciona.
 
-- 🏆 **[CVE-2026-48726](https://www.cve.org/CVERecord?id=CVE-2026-48726)** — sessão JWT não revogada no **Apache Airflow** (CWE-613). Reportada e creditada como *Bernardo Curi (`r3ngar_bugado`)*.
-- 🛡️ Bug bounty & pesquisa ofensiva como **`r3ngar_bugado`** — web, API, auth, e um pouco de web3.
-- 🧪 Interesse por análise de vulnerabilidades assistida por IA (detecção white-box, variant analysis).
+### Featured
 
-### 🤖 Construindo
+**[CVE-2026-48726](https://www.cve.org/CVERecord?id=CVE-2026-48726) — Apache Airflow**
+Sessão JWT que permanece válida após logout (CWE-613, *Insufficient Session
+Expiration*). Reportada de forma responsável e publicada no MITRE/NVD, afetando
+`apache-airflow < 3.2.2`. Creditada como *Bernardo Curi (`r3ngar_bugado`)*.
 
-- **SKYNET** — plataforma própria de inteligência de mercado: coleta 24/7 (cripto, B3, macro, institucional) + analytics + um **motor de trading com IA** que julga price action como um trader humano lê o gráfico.
-- Experimentos com LLMs como cérebro de decisão — e o rigor de provar com backtest honesto o que funciona (e o que não funciona).
+### Focus
 
-### 🧠 Aprendendo
+| Área | O que faço |
+| --- | --- |
+| **Application Security** | Auth/session flaws, IDOR & broken access control, API logic bugs, análise white-box assistida por IA |
+| **AI & Data Systems** | Pipelines de ingestão 24/7, sistemas de decisão com LLM, engenharia de dados financeiros |
+| **Quantitative Trading** | Modelos de price action, backtesting rigoroso (walk-forward, custos reais, anti-overfit) |
 
-- 🎓 Ingressando em **Ciência da Computação**.
-- Fundamentos que me interessam: algoritmos, estatística/probabilidade, machine learning e finanças quantitativas.
+### Tech
 
-### 🛠️ Stack
+`Python` · `TypeScript` · `SQLite / SQL` · `Linux` · `Git` · `LLM APIs`
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+<br>
 
----
-
-<p align="center"><i>"Não existe software pronto — existe software que ainda não quebrou."</i></p>
+<p align="center">
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=zbern1976&show_icons=true&hide_border=true&count_private=true&include_all_commits=true&theme=github_dark&title_color=58a6ff&icon_color=58a6ff" alt="stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=zbern1976&layout=compact&hide_border=true&langs_count=6&theme=github_dark&title_color=58a6ff" alt="top langs" />
+</p>
