@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Gera a arte do perfil no estilo neofetch: uma imagem qualquer virando ASCII
-colorida do lado esquerdo, e a ficha tecnica do lado direito.
+colorida do lado esquerdo, e a ficha técnica do lado direito.
 
 Uso:
     python tools/gerar_neofetch.py minha_imagem.png
@@ -19,8 +19,8 @@ from collections import Counter
 from PIL import Image, ImageOps
 
 # ------------------------------------------------------------------ ajustes
-LINHAS = 46          # altura da arte, em linhas (manda na proporcao)
-COLS_MAX = 92        # teto de largura, pra imagem muito deitada nao estourar
+LINHAS = 46          # altura da arte, em linhas (manda na proporção)
+COLS_MAX = 92        # teto de largura, pra imagem muito deitada não estourar
 CHAR_W = 8.4         # largura de um caractere, em px
 LINE_H = 16.8        # altura de uma linha, em px
 FONT_SIZE = 14
@@ -46,7 +46,7 @@ C_USER = "#58a6ff"
 
 
 def cor_de_fundo(img):
-    """A cor mais repetida na moldura provavelmente e o fundo."""
+    """A cor mais repetida na moldura provavelmente é o fundo."""
     largura, altura = img.size
     moldura = []
     for x in range(largura):
@@ -160,14 +160,14 @@ def imagem_embutida(caminho, altura_alvo):
 
 
 def montar_arte(caminho, x0, y0):
-    """ASCII se a imagem for de traco simples; a propria imagem se for cena."""
+    """ASCII se a imagem for de traço simples; a própria imagem se for cena."""
     grade = imagem_para_ascii(caminho)
     if grade is not None:
         largura = max(len(l) for l in grade) * CHAR_W
         altura = len(grade) * LINE_H
         return arte_para_svg(grade, x0, y0), largura, altura, "ascii"
 
-    # a imagem fica do tamanho da ficha, senao engole a composicao
+    # a imagem fica do tamanho da ficha, senão engole a composição
     altura = IMG_ALTURA
     proporcao = Image.open(caminho).size
     if proporcao[0] / proporcao[1] * altura > IMG_LARGURA_MAX:
@@ -182,30 +182,30 @@ def montar_arte(caminho, x0, y0):
 
 
 def ficha():
-    """A ficha tecnica. Mexa aqui pra atualizar os dados."""
+    """A ficha técnica. Mexa aqui pra atualizar os dados."""
     return [
         ("__TITULO__", "berna@zbern1976", None),
         ("__REGUA__", "", None),
-        ("OS", "Windows 11 Home - build 26200", C_VALOR),
+        ("OS", "Windows 11 Home · build 26200", C_VALOR),
         ("Host", "Dell Inspiron 15 3511", C_VALOR),
-        ("CPU", "i5-1135G7 - 4C/8T - Iris Xe", C_VALOR),
+        ("CPU", "i5-1135G7 · 4C/8T · Iris Xe", C_VALOR),
         ("Memory", "7.7 GiB (um pente soldado, sofrendo)", C_VALOR),
-        ("Shell", "PowerShell - Git Bash", C_VALOR),
-        ("Editor", "VS Code - Dev-C++ 5.11", C_VALOR),
+        ("Shell", "PowerShell · Git Bash", C_VALOR),
+        ("Editor", "VS Code · Dev-C++ 5.11", C_VALOR),
         ("__VAZIO__", "", None),
-        ("Languages.Code", "Python - C - TypeScript - SQL", C_VALOR),
-        ("Languages.Real", "Portugues - English (leitura tecnica)", C_VALOR),
+        ("Languages.Code", "Python · C · TypeScript · SQL", C_VALOR),
+        ("Languages.Real", "Português · English (leitura técnica)", C_VALOR),
         ("__VAZIO__", "", None),
-        ("Security", "CVE-2026-48726 - Airflow - CWE-613", C_DESTAQUE),
-        ("Project", "PROTON - menos 40% de tokens entre modelos", C_DESTAQUE),
-        ("Contest", "Sherlock x Ripple (XRPL) - 7 relatorios", C_VALOR),
+        ("Security", "CVE-2026-48726 · Apache Airflow · CWE-613", C_DESTAQUE),
+        ("Project", "§PROTON — −40% de tokens entre modelos", C_DESTAQUE),
+        ("Contest", "Sherlock × Ripple (XRPL) · 7 relatórios", C_VALOR),
         ("__VAZIO__", "", None),
-        ("Repos", "2 publicos - 9 privados", C_VALOR),
+        ("Repos", "2 públicos · 9 privados", C_VALOR),
         ("Stars.Given", "16", C_VALOR),
         ("Commits.2026", "92", C_VALOR),
-        ("Studying", "Ciencia da Computacao - Rio de Janeiro", C_VALOR),
+        ("Studying", "Ciência da Computação · Rio de Janeiro", C_VALOR),
         ("__VAZIO__", "", None),
-        ("Status", "procurando estagio", C_OK),
+        ("Status", "procurando estágio", C_OK),
     ]
 
 
@@ -232,7 +232,7 @@ def ficha_para_svg(x0, y0):
         if chave == "__REGUA__":
             saida.append(
                 '<text x="%.1f" y="%.1f" fill="%s">%s</text>'
-                % (x0, y, C_PONTOS, "-" * larg_total)
+                % (x0, y, C_PONTOS, "─" * larg_total)
             )
             y += LINE_H
             continue
@@ -274,8 +274,8 @@ def gerar(caminho_img, destino):
     largura = ficha_x + larg_ficha * CHAR_W + pad_x
 
     svg = """<svg xmlns="http://www.w3.org/2000/svg" width="%(w).0f" height="%(h).0f" viewBox="0 0 %(w).0f %(h).0f" role="img" aria-labelledby="tt dd">
-  <title id="tt">berna@zbern1976 - ficha do perfil em estilo neofetch</title>
-  <desc id="dd">Janela de terminal com uma arte em ASCII colorida a esquerda e a ficha tecnica a direita.</desc>
+  <title id="tt">berna@zbern1976 — ficha do perfil em estilo neofetch</title>
+  <desc id="dd">Janela de terminal com uma arte em ASCII colorida à esquerda e a ficha técnica à direita.</desc>
   <rect width="%(w).0f" height="%(h).0f" rx="10" fill="%(bg)s" stroke="%(borda)s"/>
   <path d="M0 %(barra)d V10 a10 10 0 0 1 10-10 H%(wm10).0f a10 10 0 0 1 10 10 v%(barra10)dZ" fill="%(bgbarra)s"/>
   <circle cx="22" cy="17" r="6" fill="#ff5f56"/>
