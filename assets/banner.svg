@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" role="img" aria-labelledby="bTitle bDesc">
+  <title id="bTitle">Bernardo Curi — pesquisador de segurança ofensiva</title>
+  <desc id="bDesc">Banner original em estilo painel de mangá: nome em letras grandes sobre painéis roxos com linhas de velocidade, retícula dourada e um símbolo de parágrafo irradiando luz.</desc>
+
+  <defs>
+    <linearGradient id="panelA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b0f52"/>
+      <stop offset=".55" stop-color="#4c1d95"/>
+      <stop offset="1" stop-color="#7a1f6b"/>
+    </linearGradient>
+    <linearGradient id="panelB" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#1a0a33"/>
+      <stop offset="1" stop-color="#3b1266"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset=".5" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="goldBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#ec4899" stop-opacity=".25"/>
+    </linearGradient>
+    <radialGradient id="burst" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#fbbf24" stop-opacity=".55"/>
+      <stop offset=".6" stop-color="#ec4899" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="halftone" width="11" height="11" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+      <circle cx="3" cy="3" r="1.7" fill="#fbbf24" fill-opacity=".24"/>
+    </pattern>
+    <pattern id="speed" width="46" height="300" patternUnits="userSpaceOnUse" patternTransform="skewX(-12)">
+      <rect x="0" y="0" width="2.5" height="300" fill="#ffffff" fill-opacity=".12"/>
+      <rect x="14" y="0" width="1" height="300" fill="#ffffff" fill-opacity=".085"/>
+    </pattern>
+
+    <clipPath id="clipA"><polygon points="12,10 742,10 686,290 12,290"/></clipPath>
+    <clipPath id="clipB"><polygon points="760,10 1088,10 1088,290 704,290"/></clipPath>
+  </defs>
+
+  <rect width="1100" height="300" fill="#0d1117"/>
+
+  <!-- painel esquerdo -->
+  <g clip-path="url(#clipA)">
+    <polygon points="12,10 742,10 686,290 12,290" fill="url(#panelA)"/>
+    <rect x="0" y="0" width="760" height="300" fill="url(#speed)"/>
+    <rect x="0" y="150" width="760" height="150" fill="url(#halftone)"/>
+    <g stroke="#ffffff" stroke-opacity=".16" stroke-width="1.5">
+      <path d="M-40 44 H760"/><path d="M-40 232 H740"/><path d="M-40 262 H730"/><path d="M-40 60 H500"/><path d="M-40 248 H640"/>
+    </g>
+  </g>
+  <polygon points="12,10 742,10 686,290 12,290" fill="none" stroke="#f8fafc" stroke-width="5" stroke-linejoin="miter"/>
+
+  <!-- painel direito -->
+  <g clip-path="url(#clipB)">
+    <polygon points="760,10 1088,10 1088,290 704,290" fill="url(#panelB)"/>
+    <circle cx="900" cy="150" r="190" fill="url(#burst)"/>
+    <g stroke="#fbbf24" stroke-opacity=".30" stroke-width="2.5">
+      <path d="M900 150 L900 -40"/><path d="M900 150 L1080 10"/><path d="M900 150 L1120 150"/>
+      <path d="M900 150 L1080 300"/><path d="M900 150 L900 350"/><path d="M900 150 L720 300"/>
+      <path d="M900 150 L690 150"/><path d="M900 150 L720 10"/>
+    </g>
+    <circle cx="900" cy="150" r="96" fill="none" stroke="#fbbf24" stroke-opacity=".55" stroke-width="3"/>
+    <circle cx="900" cy="150" r="112" fill="none" stroke="#ec4899" stroke-opacity=".40" stroke-width="2"/>
+    <rect x="704" y="150" width="400" height="150" fill="url(#halftone)"/>
+    <text x="900" y="212" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="168" font-weight="700"
+          fill="url(#goldText)" stroke="#1a0a33" stroke-width="6" paint-order="stroke" aria-hidden="true">§</text>
+  </g>
+  <polygon points="760,10 1088,10 1088,290 704,290" fill="none" stroke="#f8fafc" stroke-width="5" stroke-linejoin="miter"/>
+
+  <!-- texto -->
+  <g font-family="Impact, 'Arial Black', 'Helvetica Neue', Arial, sans-serif">
+    <text x="48" y="130" font-size="74" font-weight="900" letter-spacing="1.5"
+          fill="#f8fafc" stroke="#2b0f52" stroke-width="7" paint-order="stroke">BERNARDO CURI</text>
+  </g>
+  <rect x="50" y="148" width="330" height="7" fill="url(#goldBar)"/>
+  <g font-family="'Segoe UI', system-ui, Arial, sans-serif">
+    <text x="50" y="196" font-size="23" font-weight="700" letter-spacing="4.2" fill="#fbbf24">SECURITY RESEARCHER</text>
+    <text x="50" y="228" font-size="16.5" font-weight="500" letter-spacing=".3" fill="#e9d5ff">segurança ofensiva · agentes de IA · ferramentas próprias</text>
+    <text x="50" y="256" font-size="14" font-weight="500" letter-spacing=".2" fill="#c4b5fd" fill-opacity=".85">Rio de Janeiro · Ciência da Computação</text>
+  </g>
+</svg>
