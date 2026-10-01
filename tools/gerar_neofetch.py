@@ -194,8 +194,6 @@ def ficha():
         ("__CONT__", "a sessão JWT sobrevive ao logout · MITRE/NVD", C_FRACO),
         ("§PROTON", "formato compacto entre modelos de IA", C_DESTAQUE),
         ("__CONT__", "−40% tokens · −43% latência · juiz cego", C_FRACO),
-        ("Sherlock", "auditoria do XRP Ledger em C++", C_VALOR),
-        ("__CONT__", "7 relatórios submetidos · abril/2026", C_FRACO),
         ("SKYNET", "bot de trading com backtest walk-forward", C_VALOR),
         ("__VAZIO__", "", None),
         ("Stack", "Python · C · TypeScript · SQL · Linux", C_VALOR),

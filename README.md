@@ -42,7 +42,6 @@ No Apache Airflow `< 3.2.2`, o token JWT de sessão continuava válido depois do
 
 <br>
 
-- **Sherlock × Ripple (XRP Ledger)** — concurso de auditoria de abril/2026. Revisei código C++ de protocolo (Batch, MPT, Confidential Transfer) e submeti 7 relatórios. Nenhum premiado — mas foi onde aprendi a ler protocolo de verdade.
 - **Trading quantitativo** — bots próprios em Python/TypeScript: coleta de dados, backtest com validação walk-forward, paper trading. Privados porque mexem com chave de API.
 - **Ferramental próprio** — automação de recon, scripts de análise, utilitários em C. A regra é: se eu uso toda semana, viro ferramenta.
 - **Estudo em público** — Ciência da Computação (UVA, Rio). C, autômatos, estatística.
