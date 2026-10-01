@@ -43,6 +43,7 @@ C_VALOR = "#c9d1d9"
 C_DESTAQUE = "#f0b72f"
 C_OK = "#3fb950"
 C_USER = "#58a6ff"
+C_FRACO = "#8b949e"
 
 
 def cor_de_fundo(img):
@@ -186,24 +187,21 @@ def ficha():
     return [
         ("__TITULO__", "berna@zbern1976", None),
         ("__REGUA__", "", None),
-        ("OS", "Windows 11 Home · build 26200", C_VALOR),
-        ("Host", "Dell Inspiron 15 3511", C_VALOR),
-        ("CPU", "i5-1135G7 · 4C/8T · Iris Xe", C_VALOR),
-        ("Memory", "7.7 GiB (um pente soldado, sofrendo)", C_VALOR),
-        ("Shell", "PowerShell · Git Bash", C_VALOR),
-        ("Editor", "VS Code · Dev-C++ 5.11", C_VALOR),
+        ("Foco", "segurança ofensiva · dados · desenvolvimento", C_VALOR),
+        ("Base", "Rio de Janeiro · Ciência da Computação", C_VALOR),
         ("__VAZIO__", "", None),
-        ("Languages.Code", "Python · C · TypeScript · SQL", C_VALOR),
-        ("Languages.Real", "Português · English (leitura técnica)", C_VALOR),
+        ("CVE", "CVE-2026-48726 · Apache Airflow · CWE-613", C_DESTAQUE),
+        ("__CONT__", "a sessão JWT sobrevive ao logout · MITRE/NVD", C_FRACO),
+        ("§PROTON", "formato compacto entre modelos de IA", C_DESTAQUE),
+        ("__CONT__", "−40% tokens · −43% latência · juiz cego", C_FRACO),
+        ("Sherlock", "auditoria do XRP Ledger em C++", C_VALOR),
+        ("__CONT__", "7 relatórios submetidos · abril/2026", C_FRACO),
+        ("SKYNET", "bot de trading com backtest walk-forward", C_VALOR),
         ("__VAZIO__", "", None),
-        ("Security", "CVE-2026-48726 · Apache Airflow · CWE-613", C_DESTAQUE),
-        ("Project", "§PROTON — −40% de tokens entre modelos", C_DESTAQUE),
-        ("Contest", "Sherlock × Ripple (XRPL) · 7 relatórios", C_VALOR),
-        ("__VAZIO__", "", None),
-        ("Repos", "2 públicos · 9 privados", C_VALOR),
-        ("Stars.Given", "16", C_VALOR),
-        ("Commits.2026", "92", C_VALOR),
-        ("Studying", "Ciência da Computação · Rio de Janeiro", C_VALOR),
+        ("Stack", "Python · C · TypeScript · SQL · Linux", C_VALOR),
+        ("Caça", "auth/session · IDOR · lógica de negócio", C_VALOR),
+        ("__CONT__", "segurança de agentes LLM", C_FRACO),
+        ("Idiomas", "Português · English (leitura técnica)", C_VALOR),
         ("__VAZIO__", "", None),
         ("Status", "procurando estágio", C_OK),
     ]
@@ -212,6 +210,7 @@ def ficha():
 def ficha_para_svg(x0, y0):
     itens = ficha()
     larg_label = max(len(k) for k, _, _ in itens if not k.startswith("__"))
+    recuo = (larg_label + 5) * CHAR_W   # onde comeca a coluna do valor
     larg_total = max(
         larg_label + 5 + len(v) for k, v, _ in itens if not k.startswith("__")
     )
@@ -221,6 +220,14 @@ def ficha_para_svg(x0, y0):
     for chave, valor, cor in itens:
         if chave == "__VAZIO__":
             y += LINE_H * 0.6
+            continue
+        if chave == "__CONT__":
+            # segunda linha de um item, alinhada na coluna do valor
+            saida.append(
+                '<text x="%.1f" y="%.1f" fill="%s">%s</text>'
+                % (x0 + recuo, y, cor, html.escape(valor))
+            )
+            y += LINE_H
             continue
         if chave == "__TITULO__":
             saida.append(
