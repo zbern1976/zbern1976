@@ -18,3 +18,12 @@ Pesquisador de segurança ofensiva. **Creditado como _finder_ do CVE-2026-48726*
 - **[§PROTON](https://github.com/zbern1976/proton)** — benchmark custo × qualidade de um formato compacto entre modelos de IA. Chamadas reais de API, juiz cego, reprodutível, MIT.
 
 **Stack:** `Python` · `C` · `SQLite / SQL` · `Linux` · `Git` · `LLM APIs`
+
+<details>
+<summary><sub>o verdadeiro autor deste perfil</sub></summary>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/zbern1976/zbern1976/master/assets/gragas.svg" width="241" alt="Gragas cambaleando">
+</p>
+
+</details>
