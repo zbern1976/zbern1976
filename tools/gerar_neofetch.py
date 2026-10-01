@@ -12,20 +12,25 @@ Trocar o desenho = rodar de novo com outra imagem e dar commit.
 import sys
 import os
 import html
+import io
+import base64
 from collections import Counter
 
 from PIL import Image, ImageOps
 
 # ------------------------------------------------------------------ ajustes
-LINHAS = 40          # altura da arte, em linhas (manda na proporcao)
-COLS_MAX = 84        # teto de largura, pra imagem muito deitada nao estourar
+LINHAS = 46          # altura da arte, em linhas (manda na proporcao)
+COLS_MAX = 92        # teto de largura, pra imagem muito deitada nao estourar
 CHAR_W = 8.4         # largura de um caractere, em px
 LINE_H = 16.8        # altura de uma linha, em px
 FONT_SIZE = 14
 RAMPA = " .:-=+*#%@"  # do mais vazio pro mais cheio
 FUNDO_TOL = 0.055    # 0..1 — o quanto um pixel pode parecer com o fundo e sumir
 GANHO = 2.0          # empurra o contraste da arte; suba se ficar apagada
-PALETA_N = 22        # teto de cores (menos cor = SVG menor)
+PALETA_N = 22        # teto de cores no modo caractere (menos cor = SVG menor)
+PALETA_RICA = 160    # teto de cores no modo bloco, onde a cor faz o desenho
+IMG_ALTURA = 430     # altura da imagem quando ela entra inteira, em px
+IMG_LARGURA_MAX = 520  # teto de largura pra imagem deitada nao engolir a ficha
 
 FONTE = "'Cascadia Code','JetBrains Mono',Consolas,'DejaVu Sans Mono','Courier New',monospace"
 
@@ -53,9 +58,9 @@ def cor_de_fundo(img):
     return Counter(moldura).most_common(1)[0][0]
 
 
-def quantizar(rgb):
+def quantizar(rgb, n=PALETA_N):
     """Arredonda a cor pra reduzir a paleta e agrupar caracteres vizinhos."""
-    passo = max(1, 256 // max(2, int(PALETA_N ** (1 / 3)) + 1))
+    passo = max(1, 256 // max(2, int(n ** (1 / 3)) + 1))
     return tuple(min(255, (c // passo) * passo + passo // 2) for c in rgb)
 
 
@@ -82,12 +87,26 @@ def imagem_para_ascii(caminho):
 
     # normaliza pelo pixel que mais se afasta, senao foto de pouco contraste some
     teto = max(distancias) or 1.0
+    normalizadas = [d / teto for d in distancias]
+
+    # Se quase nada encostou no fundo, a imagem nao tem fundo solido (cena
+    # inteira preenchida). Ai a distancia nao separa nada e tudo satura — nesse
+    # caso quem manda na densidade e o brilho, que ainda desenha a forma.
+    fatia_fundo = sum(1 for d in normalizadas if d < FUNDO_TOL) / len(normalizadas)
+    por_brilho = fatia_fundo < 0.12
+
+    # Cena cheia e colorida (ilustracao, foto): caractere de densidade vira
+    # mancha e bloco colorido vira mosaico. Nesses casos a imagem entra inteira,
+    # do jeito que o neofetch moderno mostra — quem decide isso e montar_arte().
+    if por_brilho:
+        return None
 
     grade, i = [], 0
     for _ in range(img.height):
         linha = []
         for _ in range(img.width):
-            rgb, d = pixels[i], distancias[i] / teto
+            rgb = pixels[i]
+            d = normalizadas[i]
             i += 1
             if d < FUNDO_TOL:
                 linha.append((" ", None))
@@ -125,6 +144,41 @@ def arte_para_svg(grade, x0, y0):
                 '<text y="%.1f" xml:space="preserve">%s</text>' % (y, "".join(spans))
             )
     return "\n    ".join(saida)
+
+
+def imagem_embutida(caminho, altura_alvo):
+    """Devolve a imagem como data URI, pronta pra entrar no SVG."""
+    img = Image.open(caminho).convert("RGB")
+    escala = altura_alvo / img.height
+    largura = max(1, round(img.width * escala))
+    img = img.resize((largura, round(altura_alvo)), Image.LANCZOS)
+
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=84, optimize=True)
+    dado = base64.b64encode(buf.getvalue()).decode("ascii")
+    return "data:image/jpeg;base64," + dado, largura
+
+
+def montar_arte(caminho, x0, y0):
+    """ASCII se a imagem for de traco simples; a propria imagem se for cena."""
+    grade = imagem_para_ascii(caminho)
+    if grade is not None:
+        largura = max(len(l) for l in grade) * CHAR_W
+        altura = len(grade) * LINE_H
+        return arte_para_svg(grade, x0, y0), largura, altura, "ascii"
+
+    # a imagem fica do tamanho da ficha, senao engole a composicao
+    altura = IMG_ALTURA
+    proporcao = Image.open(caminho).size
+    if proporcao[0] / proporcao[1] * altura > IMG_LARGURA_MAX:
+        altura = IMG_LARGURA_MAX * proporcao[1] / proporcao[0]
+    uri, largura = imagem_embutida(caminho, altura)
+    svg = (
+        '<image x="%.1f" y="%.1f" width="%d" height="%.1f" '
+        'preserveAspectRatio="xMidYMid meet" href="%s"/>'
+        % (x0, y0 - LINE_H, largura, altura, uri)
+    )
+    return svg, largura, altura, "imagem"
 
 
 def ficha():
@@ -204,19 +258,18 @@ def ficha_para_svg(x0, y0):
 
 
 def gerar(caminho_img, destino):
-    grade = imagem_para_ascii(caminho_img)
-
     pad_x = 22
     barra_h = 34
     arte_x = pad_x + 8
     arte_y = barra_h + 48
-    largura_arte = max(len(l) for l in grade) if grade else 0
-    ficha_x = arte_x + largura_arte * CHAR_W + 34
 
-    arte_svg = arte_para_svg(grade, arte_x, arte_y)
+    arte_svg, largura_arte, altura_arte, modo = montar_arte(
+        caminho_img, arte_x, arte_y
+    )
+    ficha_x = arte_x + largura_arte + 34
     ficha_svg, ficha_fim, larg_ficha = ficha_para_svg(ficha_x, arte_y + LINE_H)
 
-    fim_arte = arte_y + len(grade) * LINE_H
+    fim_arte = arte_y + altura_arte
     altura = max(fim_arte, ficha_fim) + 40
     largura = ficha_x + larg_ficha * CHAR_W + pad_x
 

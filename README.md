@@ -4,8 +4,10 @@
       python tools/gerar_neofetch.py caminho/da/imagem.png
       git add assets/neofetch.svg && git commit -m "chore: troca a arte" && git push
 
-  Funciona melhor com imagem de alto contraste e silhueta clara (meme de traço,
-  desenho chapado, logo). Foto cheia de detalhe vira borrão.
+  O script decide sozinho como desenhar:
+    - imagem de traco simples e fundo solido (meme de linha, logo)  -> vira ASCII art colorida
+    - ilustracao ou foto de cena cheia (tipo o Gragas)              -> entra inteira, embutida no SVG
+
   Os dados da ficha ficam na funcao ficha(), dentro do script.
 -->
 
@@ -49,4 +51,4 @@ No Apache Airflow `< 3.2.2`, o token JWT de sessão continuava válido depois do
 
 ---
 
-<sub>A arte da esquerda é gerada por <a href="tools/gerar_neofetch.py"><code>tools/gerar_neofetch.py</code></a> — joga uma imagem nele e ele cospe o SVG. Troca quando enjoar.</sub>
+<sub>A arte da esquerda sai de <a href="tools/gerar_neofetch.py"><code>tools/gerar_neofetch.py</code></a> — joga uma imagem nele e ele devolve o SVG inteiro. Troca quando enjoar.</sub>
